@@ -3,7 +3,9 @@ package com.datmt.javafx.wp2md;
 import com.datmt.javafx.wp2md.model.block.CodeBlock;
 import com.datmt.javafx.wp2md.model.block.HeadingBlock;
 import com.datmt.javafx.wp2md.model.block.ImageBlock;
+import com.datmt.javafx.wp2md.model.block.ListBlock;
 import com.datmt.javafx.wp2md.model.block.ParagraphBlock;
+import com.datmt.javafx.wp2md.model.block.VideoBlock;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +18,9 @@ class ConverterTest {
     private static String paragraphText;
     private static String imageText;
     private static String codeText;
+    private static String listText;
 
+    private static String videoText;
 
     @BeforeAll
     static void setup() {
@@ -93,6 +97,17 @@ class ConverterTest {
                 encrypt.key=SUPER_SECRET_ENCRYPT_KEY</pre></div>
                 <!-- /wp:codemirror-blocks/code-block -->
                 """;
+       listText = """
+               <!-- wp:list -->
+               <ul><li>Use $unwind to deconstruct the investment array</li><li>Use $group by _id and $sum to calculate the total investment value of each person. In this step, we also use the accumulator <code>$first</code> to extract the family name and store it in a field called <code>family_name</code></li><li>Use $match to filter out people with less than 50 investment values</li><li>Use $group on last name and $sum to count the number of the remaining people.</li></ul>
+               <!-- /wp:list -->
+               """;
+
+       videoText = """
+               <!-- wp:video -->
+               <figure class="wp-block-video"><video controls src="https://datmt.com/wp-content/uploads/2022/08/2022-08-01-14-34-51.mp4"></video><figcaption>Import documents to collections</figcaption></figure>
+               <!-- /wp:video -->
+               """;
     }
     @Test
     void string2Blocks() {
@@ -111,7 +126,20 @@ class ConverterTest {
         System.out.println(block.toMarkdown());
         assertTrue(block.toMarkdown().contains("Enable Configuration"));
     }
-
+    @Test
+    void list2Md() {
+        var block = Converter.string2Blocks(listText).get(0);
+        assertTrue(block instanceof ListBlock); ;
+        System.out.println(block.toMarkdown());
+        assertTrue(block.toMarkdown().contains("deconstruct"));
+    }
+    @Test
+    void video2Md() {
+        var block = Converter.string2Blocks(videoText).get(0);
+        assertTrue(block instanceof VideoBlock); ;
+        System.out.println(block.toMarkdown());
+        assertTrue(block.toMarkdown().contains("mp4"));
+    }
     @Test
     void paragraph2Md() {
         var block = Converter.string2Blocks(paragraphText);

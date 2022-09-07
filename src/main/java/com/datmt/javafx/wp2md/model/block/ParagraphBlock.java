@@ -17,6 +17,12 @@ public class ParagraphBlock extends Block {
         Element element = Jsoup.parse(getContent()).selectFirst("p");
 
         assert element != null;
-        return element.text();
+        return element.html()
+                .replaceAll("<code>", "`")
+                .replaceAll("</code>", "`")
+                .replaceAll("<strong>", "**")
+                .replaceAll("</strong>", "**")
+                .replaceAll("</em>", "*")
+                .replaceAll("<em>", "*");
     }
 }

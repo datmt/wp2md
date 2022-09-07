@@ -4,7 +4,9 @@ import com.datmt.javafx.wp2md.model.block.CodeBlock;
 import com.datmt.javafx.wp2md.model.block.GenericBlock;
 import com.datmt.javafx.wp2md.model.block.HeadingBlock;
 import com.datmt.javafx.wp2md.model.block.ImageBlock;
+import com.datmt.javafx.wp2md.model.block.ListBlock;
 import com.datmt.javafx.wp2md.model.block.ParagraphBlock;
+import com.datmt.javafx.wp2md.model.block.VideoBlock;
 
 import java.util.List;
 
@@ -22,6 +24,12 @@ public class BlockClassifier {
         }
         if (firstLineContent.contains(Tags.IMAGE)) {
             return new ImageBlock(lines);
+        }
+        if (firstLineContent.contains(Tags.LIST)) {
+            return new ListBlock(lines);
+        }
+        if (firstLineContent.contains(Tags.VIDEO)) {
+            return new VideoBlock(lines);
         }
 
         return new GenericBlock(lines);

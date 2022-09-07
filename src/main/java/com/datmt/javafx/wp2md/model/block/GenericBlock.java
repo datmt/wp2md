@@ -12,6 +12,12 @@ public class GenericBlock extends Block {
 
     @Override
     public String toMarkdown() {
-        return null;
+        StringBuilder builder = new StringBuilder();
+        for (Line line: lines) {
+            if (line.isStartLine() || line.isEndLine())
+                continue;
+            builder.append(line.getContent());
+        }
+        return builder.toString();
     }
 }

@@ -26,7 +26,11 @@ public class CodeBlock extends Block {
                 .substring(getFirstLine().getContent().indexOf("\"mime\":") + "\"mime\":".length() + 1)
                 .replaceAll("\".*", "");
 
-        return lang.substring(lang.indexOf("-") + 1);
+        lang = lang.substring(lang.indexOf("-") + 1);
+        if (lang.contains("ecmascript")) {
+            return "javascript";
+        }
+        return lang;
 
     }
 
