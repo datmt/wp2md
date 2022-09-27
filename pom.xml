@@ -79,7 +79,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.datmt.javafx.wp2md/com.datmt.javafx.wp2md.HelloApplication</mainClass>
+                            <mainClass>com.datmt.javafx.wp2md/com.datmt.javafx.wp2md.WP2MDApplication</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
